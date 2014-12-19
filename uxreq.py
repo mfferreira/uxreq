@@ -1,5 +1,6 @@
 from untwisted.utils.stdio import LOAD, CLOSE
 from untwisted.network import Spin, xmap, get_event, spawn, zmap
+from urllib import urlencode
 
 HTTP_RESPONSE = get_event()
 
@@ -109,7 +110,6 @@ class HttpCode(object):
         spawn(spin, code, version, reason, header, message)
 
 def get(rsc, args={}, version='HTTP/1.1', header={}):
-    from urllib import urlencode
     args = '?%s' % urlencode(args) if args else ''
     data  = 'GET %s%s %s\r\n' % (rsc, args, version)
 
@@ -118,7 +118,22 @@ def get(rsc, args={}, version='HTTP/1.1', header={}):
     data = data + '\r\n'
     return data
 
-def post(addr, rsc, args, header):
+def post_data(rsc, data={}, version='HTTP/1.1', header={}):
+    params                   = urlencode(data)
+    data                     = 'POST %s %s\r\n' % (rsc, version)
+    header['Content-Type']   = 'application/x-www-form-urlencoded'
+    header['Content-Length'] = len(params)
+
+    for key, value in header.iteritems():
+        data = data + '%s: %s\r\n' % (key, value)
+
+    data = data + '\r\n'
+    data = data + params
+    return data
+
+def post_file():
     pass
+
+
 
 
