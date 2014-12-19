@@ -1,12 +1,13 @@
 """
 """
 
-from uxreq import HttpClient, HTTP_RESPONSE, get, auth
+from uxreq import HttpClient, HTTP_RESPONSE, post_data, auth
 from untwisted.utils.stdio import Stdin, Stdout, CONNECT, CONNECT_ERR, CLOSE, lose, Client, LOAD, DUMPED
 from untwisted.network import Spin, xmap, core, die
+import json
 import sys
 
-def connect(rsc, username, password):
+def connect(rsc, username, password, payload):
     ADDR   = 'baas.kinvey.com'
     PORT   = 80
     HEADER = {
@@ -15,7 +16,7 @@ def connect(rsc, username, password):
     }
         
     con  = Spin()
-    data = get(rsc, header=HEADER)
+    data = post_data(rsc, data=json.loads(payload), header=HEADER)
     
     Client(con)
     con.connect_ex((ADDR, PORT))
@@ -43,7 +44,7 @@ def handle_http_response(spin, version, code, reason, header, data):
     die()
 
 if __name__ == '__main__':
-    con = connect(sys.argv[1], sys.argv[2], sys.argv[3])
+    con = connect(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
     core.gear.mainloop()
 
 

@@ -12,3 +12,8 @@ python -u codepad.py
 cd ~/lib/uxreq-code/demo/basic
 python -u basic.py '/appdata/appkey' username password
 
+cd ~/lib/uxreq-code/demo/post
+python -u post.py '/appdata/appkey/collection' alpha alpha '{"name": "fuinho", "age": "40"}'
+
+
+
