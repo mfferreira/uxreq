@@ -9,3 +9,6 @@ cd ~/lib/uxreq-code/demo/codepad
 python -u codepad.py /home/tau/vimperator-keys.html
 python -u codepad.py 
 
+cd ~/lib/uxreq-code/demo/basic
+python -u basic.py '/appdata/appkey' username password
+

@@ -131,8 +131,15 @@ def post_data(rsc, data={}, version='HTTP/1.1', header={}):
     data = data + params
     return data
 
+def auth(username, password):
+    from base64 import encodestring
+    base = encodestring('%s:%s' % (username, password))
+    base = base.replace('\n', '')
+    return "Basic %s" % base
+
 def post_file():
     pass
+
 
 
 
