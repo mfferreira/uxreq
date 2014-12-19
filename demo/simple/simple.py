@@ -41,8 +41,8 @@ def set_up_con(con, data):
 
     con.dump(data)
     
-def handle_http_response(spin, version, code, reason, header, message):
-    print 'message', repr(message)
+def handle_http_response(spin, version, code, reason, header, data):
+    print 'data', repr(data)
     print 'version', version
     print 'code', code
     print 'header', header
